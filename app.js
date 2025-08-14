@@ -36,6 +36,16 @@ class QuizTrackerBase {
     }%`;
   }
 
+  getTotalQUestionsString() {
+    return `Total questions answered: ${this.#totalQuestions}.\nYou have ${
+      this.correctGuesses
+    } correct answers and ${this.incorrectGuesses} incorrect answers.`;
+  }
+
+  getTotalQuestions() {
+    return this.#totalQuestions;
+  }
+
   toString() {
     return JSON.stringify({
       correctGuesses: this.correctGuesses,
@@ -79,14 +89,15 @@ class QuizTrackerBase {
  **************************************************/
 
 class MyQuizTracker extends QuizTrackerBase {
+  #totalQuestions;
   constructor(correctGuesses, incorrectGuesses) {
     super(correctGuesses, incorrectGuesses);
+    this.#totalQuestions = correctGuesses + incorrectGuesses;
   }
 
   getIncorrectPercentage() {
     const percentIncorrect = (
-      this.incorrectGuesses /
-      (this.correctGuesses + this.incorrectGuesses)
+      this.incorrectGuesses / this.#totalQuestions
     ).toFixed(2);
     // needed a Math.round on the last part - Would sometimes produce numbers like 57.99999997. Might happen with the base class as well?
     return `Current percentage of incorrectly answered questions: ${percentIncorrect} / ${Math.round(
@@ -119,8 +130,10 @@ const testChildObj = new MyQuizTracker(9, 10);
 console.log(testObj);
 console.log(testObj.toString());
 console.log(testObj.getCorrectPercentage());
+console.log(testObj.getTotalQUestionsString());
 
 console.log(testChildObj);
 console.log(testChildObj.toString());
 console.log(testChildObj.getCorrectPercentage());
 console.log(testChildObj.getIncorrectPercentage());
+console.log(testChildObj.getTotalQUestionsString());
