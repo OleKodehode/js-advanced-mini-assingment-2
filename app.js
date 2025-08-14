@@ -28,9 +28,11 @@ class QuizTrackerBase {
   }
 
   getCorrectPercentage() {
+    if (!this.#totalQuestions) return `No questions has been answered`; // to avoid dividing 0 by 0
     const percentCorrect = (this.correctGuesses / this.#totalQuestions).toFixed(
       2
     );
+
     return `Current percentage of correctly answered questions: ${percentCorrect} / ${
       percentCorrect * 100
     }%`;
@@ -96,6 +98,7 @@ class MyQuizTracker extends QuizTrackerBase {
   }
 
   getIncorrectPercentage() {
+    if (!this.#totalQuestions) return `No questions has been answered`; // to avoid dividing 0 / 0
     const percentIncorrect = (
       this.incorrectGuesses / this.#totalQuestions
     ).toFixed(2);
@@ -126,6 +129,7 @@ class MyQuizTracker extends QuizTrackerBase {
 
 const testObj = new QuizTrackerBase(5, 8);
 const testChildObj = new MyQuizTracker(9, 10);
+const edgeCaseObj = new MyQuizTracker(0, 0);
 
 console.log(testObj);
 console.log(testObj.toString());
@@ -137,3 +141,9 @@ console.log(testChildObj.toString());
 console.log(testChildObj.getCorrectPercentage());
 console.log(testChildObj.getIncorrectPercentage());
 console.log(testChildObj.getTotalQUestionsString());
+
+console.log(edgeCaseObj);
+console.log(edgeCaseObj.toString());
+console.log(edgeCaseObj.getCorrectPercentage());
+console.log(edgeCaseObj.getIncorrectPercentage());
+console.log(edgeCaseObj.getTotalQUestionsString());
