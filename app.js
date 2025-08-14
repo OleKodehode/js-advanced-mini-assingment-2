@@ -49,7 +49,7 @@ class QuizTrackerBase {
   toString() {
     return JSON.stringify({
       correctGuesses: this.correctGuesses,
-      incorrectGusses: this.incorrectGuesses,
+      incorrectGuesses: this.incorrectGuesses,
     });
   }
 }
